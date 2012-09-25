@@ -1,6 +1,7 @@
-" ChangeGloballySmartCase.vim: Change {motion} text and repeat the substitution on the entire line.
+" ChangeGloballySmartCase.vim: Change {motion} text and repeat as SmartCase substitution.
 "
 " DEPENDENCIES:
+"   - ChangeGlobally.vim autoload script
 "
 " Copyright: (C) 2012 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
@@ -8,23 +9,7 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
-"   1.00.003	25-Sep-2012	Add g:ChangeGlobally_GlobalCountThreshold
-"				configuration.
-"				Merge ChangeGlobally#SetCount() and
-"				ChangeGlobally#SetRegister() into
-"				ChangeGlobally#SetParameters() and pass in
-"				visual mode flag.
-"				Inject the [visual]repeat mappings from the
-"				original mappings (via
-"				ChangeGlobally#SetParameters()) instead of
-"				hard-coding them in the functions, so that
-"				the functions can be re-used for similar
-"				(SmartCase) substitutions.
-"	002	21-Sep-2012	ENH: Use [count] before the operator and in
-"				visual mode to specify the number of
-"				substitutions that should be made.
-"				Call ChangeGlobally#SetCount() to record it.
-"	001	28-Aug-2012	file creation
+"	001	25-Sep-2012	file creation from plugin/ChangeGlobally.vim
 
 " Avoid installing twice or when in unsupported Vim version.
 if exists('g:loaded_ChangeGloballySmartCase') || (v:version < 700)
@@ -41,6 +26,10 @@ function! ChangeGloballySmartCase#CountedReplace( count )
     return (l:newText ==# submatch(0) ? l:newText : SmartCase(l:newText))
 endfunction
 function! ChangeGloballySmartCase#Hook( search, replace, ... )
+    " Use a case-insensitive match (replace \V\C with \V\c, as the hook doesn't
+    " allow to append the /i flag to the :substitute command).
+    " Make all non-alphabetic delimiter characters and whitespace optional to
+    " catch all variants.
     return [
     \   '\V\c' . substitute(a:search[4:], '\A', '\\A\\?', 'g'),
     \   substitute(a:replace, 'ChangeGlobally#CountedReplace', 'ChangeGloballySmartCase#CountedReplace', '')
