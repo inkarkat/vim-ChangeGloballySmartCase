@@ -36,23 +36,15 @@ set cpo&vim
 
 "- functions -------------------------------------------------------------------
 
-function! ChangeGloballySmartCase#SmartCase(arg)
-    echomsg '****' string(submatch(0)) string(a:arg)
-    return a:arg
-endfunction
 function! ChangeGloballySmartCase#CountedReplace( count )
     let l:newText = ChangeGlobally#CountedReplace(a:count)
-    return (l:newText ==# submatch(0) ? l:newText : ChangeGloballySmartCase#SmartCase(l:newText))
+    return (l:newText ==# submatch(0) ? l:newText : SmartCase(l:newText))
 endfunction
-function! ChangeGloballySmartCase#Hook( substitution, ... )
-    let [l:prefix, l:search, l:postfix, l:count, l:flags] = matchlist(a:substitution, '^\(\\\^\|\\<\)\?\(.\{-}\)\(\\\$\|\\>\)\?/\\=ChangeGlobally#CountedReplace(\(\d\+\))/\([^/]*\)$')[1:5]
-    return printf('%s%s%s/\=ChangeGloballySmartCase#CountedReplace(%d)/%si',
-    \   l:prefix,
-    \   substitute(l:search, '\A', '\\A\\?', 'g'),
-    \   l:postfix,
-    \   l:count,
-    \   l:flags
-    \)
+function! ChangeGloballySmartCase#Hook( search, replace, ... )
+    return [
+    \   '\V\c' . substitute(a:search[4:], '\A', '\\A\\?', 'g'),
+    \   substitute(a:replace, 'ChangeGlobally#CountedReplace', 'ChangeGloballySmartCase#CountedReplace', '')
+    \]
 endfunction
 
 
