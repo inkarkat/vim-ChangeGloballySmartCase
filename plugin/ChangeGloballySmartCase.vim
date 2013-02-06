@@ -2,6 +2,7 @@
 "
 " DEPENDENCIES:
 "   - ChangeGlobally.vim autoload script
+"   - SmartCase plugin (SmartCase() function)
 "
 " Copyright: (C) 2012 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
@@ -9,6 +10,8 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.00.002	26-Sep-2012	Also allow delimiters between CamelCase
+"				fragments in a:search.
 "	001	25-Sep-2012	file creation from plugin/ChangeGlobally.vim
 
 " Avoid installing twice or when in unsupported Vim version.
@@ -28,10 +31,14 @@ endfunction
 function! ChangeGloballySmartCase#Hook( search, replace, ... )
     " Use a case-insensitive match (replace \V\C with \V\c, as the hook doesn't
     " allow to append the /i flag to the :substitute command).
-    " Make all non-alphabetic delimiter characters and whitespace optional to
-    " catch all variants.
+    let l:search = a:search[4:]
+
+    " Make all non-alphabetic delimiter characters and whitespace optional, and
+    " allow delimiters between CamelCase fragments to catch all variants.
+    let l:search = substitute(l:search, '\A', '\\A\\?', 'g')
+    let l:search = substitute(l:search, '\(\l\)\(\u\)', '\1\\A\\?\2', 'g')
     return [
-    \   '\V\c' . substitute(a:search[4:], '\A', '\\A\\?', 'g'),
+    \   '\V\c' . l:search,
     \   substitute(a:replace, 'ChangeGlobally#CountedReplace', 'ChangeGloballySmartCase#CountedReplace', '')
     \]
 endfunction
