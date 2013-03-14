@@ -13,7 +13,7 @@ history				|ChangeGloballySmartCase-history|
 ==============================================================================
 DESCRIPTION				 *ChangeGloballySmartCase-description*
 
-As an add-on to the |ChangeGlobally.vim| plugin (vimscript #0000), this plugin
+As an add-on to the |ChangeGlobally.vim| plugin (vimscript #4321), this plugin
 implements a |gC| variant that uses a "smart case" substitution which covers
 variations in upper-/lowercase ("maxSize" vs. "MaxSize") as well as different
 coding styles like CamelCase and underscore_notation ("maxSize", "MAX_SIZE").
@@ -43,6 +43,16 @@ USAGE					       *ChangeGloballySmartCase-usage*
 
 EXAMPLE					     *ChangeGloballySmartCase-example*
 
+Suppose you have a line like this, and you want to rename the type from
+"NodeList" to "FooBarSet", and adapt the variable name, too:
+    function set nodeList(nodeList:NodeList):void; // Update node list. ~
+
+With the cursor on the start of any of the "nodeList", type gCe, enter the
+text "fooBarSet", then press <Esc>. The line will turn into
+    function set fooBarSet(fooBarSet:FooBarSet):void; // Update foo bar set. ~
+You can now re-apply this substitution to other lines or a visual selection
+via |.|
+
 ==============================================================================
 INSTALLATION				*ChangeGloballySmartCase-installation*
 
@@ -57,7 +67,8 @@ To uninstall, use the |:RmVimball| command.
 DEPENDENCIES				*ChangeGloballySmartCase-dependencies*
 
 - Requires Vim 7.0 or higher.
-- ChangeGlobally.vim (vimscript #0000)
+- ChangeGlobally.vim (vimscript #4321)
+- SmartCase.vim (vimscript #1359)
 - repeat.vim (vimscript #2136) plugin (optional)
 - visualrepeat.vim (vimscript #3848) plugin (optional)
 
@@ -73,7 +84,7 @@ IDEAS					       *ChangeGloballySmartCase-ideas*
 ==============================================================================
 HISTORY					     *ChangeGloballySmartCase-history*
 
-GOAL
+1.00	23-Nov-2012
 First published version.
 
 0.01	25-Sep-2012
