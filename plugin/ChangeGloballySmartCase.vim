@@ -64,7 +64,7 @@ vnoremap <silent> <Plug>(ChangeGloballySmartCaseVisual)
 \ :<C-u>call setline('.', getline('.'))<Bar>
 \call ChangeGlobally#SetParameters(v:count, 1, "\<lt>Plug>(ChangeGloballySmartCaseRepeat)", "\<lt>Plug>(ChangeGloballySmartCaseVisualRepeat)", function('ChangeGloballySmartCase#Hook'))<Bar>
 \call ChangeGlobally#Operator(visualmode())<CR>
-if ! hasmapto('<Plug>(ChangeGloballySmartCaseVisual)', 'v')
+if ! hasmapto('<Plug>(ChangeGloballySmartCaseVisual)', 'x')
     xmap gC <Plug>(ChangeGloballySmartCaseVisual)
 endif
 
