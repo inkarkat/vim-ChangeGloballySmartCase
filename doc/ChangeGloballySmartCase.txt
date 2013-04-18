@@ -70,7 +70,7 @@ DEPENDENCIES				*ChangeGloballySmartCase-dependencies*
 - ChangeGlobally.vim (vimscript #4321)
 - SmartCase.vim (vimscript #1359)
 - repeat.vim (vimscript #2136) plugin (optional)
-- visualrepeat.vim (vimscript #3848) plugin (optional)
+- visualrepeat.vim (vimscript #3848) plugin (version 2.00 or higher; optional)
 
 ==============================================================================
 LIMITATIONS				 *ChangeGloballySmartCase-limitations*
@@ -84,6 +84,12 @@ IDEAS					       *ChangeGloballySmartCase-ideas*
 ==============================================================================
 HISTORY					     *ChangeGloballySmartCase-history*
 
+1.10	RELEASEME
+- Use optional visualrepeat#reapply#VisualMode() for normal mode repeat of a
+  visual mapping. When supplying a [count] on such repeat of a previous
+  linewise selection, now [count] number of lines instead of [count] times the
+  original selection is used.
+
 1.00	23-Nov-2012
 First published version.
 
@@ -91,7 +97,7 @@ First published version.
 Started development.
 
 ==============================================================================
-Copyright: (C) 2012 Ingo Karkat
+Copyright: (C) 2012-2013 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
