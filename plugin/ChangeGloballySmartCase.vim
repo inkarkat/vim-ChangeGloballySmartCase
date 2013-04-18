@@ -4,12 +4,18 @@
 "   - ChangeGlobally.vim autoload script
 "   - SmartCase plugin (SmartCase() function)
 "
-" Copyright: (C) 2012 Ingo Karkat
+" Copyright: (C) 2012-2013 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.10.003	18-Apr-2013	Use optional visualrepeat#reapply#VisualMode()
+"				for normal mode repeat of a visual mapping.
+"				When supplying a [count] on such repeat of a
+"				previous linewise selection, now [count] number
+"				of lines instead of [count] times the original
+"				selection is used.
 "   1.00.002	26-Sep-2012	Also allow delimiters between CamelCase
 "				fragments in a:search.
 "	001	25-Sep-2012	file creation from plugin/ChangeGlobally.vim
@@ -84,13 +90,13 @@ vnoremap <silent> <Plug>(ChangeGloballySmartCaseVisualRepeat)
 " Note: The cursor is placed back at the beginning of the selection (via "o"),
 " so in case the repeat substitutions fails, the cursor will stay at the current
 " position instead of moving to the end of the selection.
-" If [count] is given, the size is multiplied accordingly. This has the side
-" effect that a repeat with [count] will persist the expanded size, which is
-" different from what the normal-mode repeat does (it keeps the scope of the
-" original command).
+"   If [count] is given, that number of lines is used / the original size is
+"   multiplied accordingly. This has the side effect that a repeat with [count]
+"   will persist the expanded size, which is different from what the normal-mode
+"   repeat does (it keeps the scope of the original command).
 nnoremap <silent> <Plug>(ChangeGloballySmartCaseVisualRepeat)
 \ :<C-u>call setline('.', getline('.'))<Bar>
-\execute 'normal!' v:count1 . 'v' . (visualmode() !=# 'V' && &selection ==# 'exclusive' ? ' ' : ''). "o\<lt>Esc>"<Bar>
+\execute 'normal!' ChangeGlobally#VisualMode()<Bar>
 \call ChangeGlobally#Repeat(1, "\<lt>Plug>(ChangeGloballySmartCaseVisualRepeat)", "\<lt>Plug>(ChangeGloballySmartCaseVisualRepeat)")<CR>
 
 let &cpo = s:save_cpo
