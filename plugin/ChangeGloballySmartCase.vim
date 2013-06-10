@@ -10,7 +10,13 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
-"   1.10.003	18-Apr-2013	Use optional visualrepeat#reapply#VisualMode()
+"   1.20.004	19-Apr-2013	Adapt to ChangeGlobally.vim version 1.20:
+"				Stop duplicating s:count into l:replace and
+"				instead access directly from
+"				ChangeGlobally#CountedReplace(); i.e. drop the
+"				argument of
+"				ChangeGloballySmartCase#CountedReplace(), too.
+"   1.20.003	18-Apr-2013	Use optional visualrepeat#reapply#VisualMode()
 "				for normal mode repeat of a visual mapping.
 "				When supplying a [count] on such repeat of a
 "				previous linewise selection, now [count] number
@@ -30,8 +36,8 @@ set cpo&vim
 
 "- functions -------------------------------------------------------------------
 
-function! ChangeGloballySmartCase#CountedReplace( count )
-    let l:newText = ChangeGlobally#CountedReplace(a:count)
+function! ChangeGloballySmartCase#CountedReplace()
+    let l:newText = ChangeGlobally#CountedReplace()
     return (l:newText ==# submatch(0) ? l:newText : SmartCase(l:newText))
 endfunction
 function! ChangeGloballySmartCase#Hook( search, replace, ... )
