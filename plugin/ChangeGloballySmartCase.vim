@@ -2,7 +2,7 @@
 "
 " DEPENDENCIES:
 "   - ChangeGlobally.vim autoload script
-"   - SmartCase plugin (SmartCase() function)
+"   - SmartCase.vim plugin (SmartCase() function)
 "
 " Copyright: (C) 2012-2013 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
