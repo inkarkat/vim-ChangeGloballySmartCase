@@ -84,7 +84,7 @@ IDEAS					       *ChangeGloballySmartCase-ideas*
 ==============================================================================
 HISTORY					     *ChangeGloballySmartCase-history*
 
-1.20	RELEASEME
+1.20	19-Nov-2013
 - Adapt to interface changes of ChangeGlobally.vim version 1.20
 - Use optional visualrepeat#reapply#VisualMode() for normal mode repeat of a
   visual mapping. When supplying a [count] on such repeat of a previous
