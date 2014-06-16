@@ -10,6 +10,8 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.20.005	14-Jun-2013	Minor: Make substitute() robust against
+"				'ignorecase'.
 "   1.20.004	19-Apr-2013	Adapt to ChangeGlobally.vim version 1.20:
 "				Stop duplicating s:count into l:replace and
 "				instead access directly from
@@ -51,7 +53,7 @@ function! ChangeGloballySmartCase#Hook( search, replace, ... )
     let l:search = substitute(l:search, '\(\l\)\(\u\)', '\1\\A\\?\2', 'g')
     return [
     \   '\V\c' . l:search,
-    \   substitute(a:replace, 'ChangeGlobally#CountedReplace', 'ChangeGloballySmartCase#CountedReplace', '')
+    \   substitute(a:replace, '\CChangeGlobally#CountedReplace', 'ChangeGloballySmartCase#CountedReplace', '')
     \]
 endfunction
 
