@@ -41,6 +41,11 @@ USAGE					       *ChangeGloballySmartCase-usage*
 ["x]gCC			Like |gcc|, but with |SmartCase-rules|. It's probably
 			less useful than |gC|, but added for completeness.
 
+							     *gX* *v_gX* *gXX*
+[N]["x]gX{motion}	Like |gx|, but also substitute close textual variants
+{Visual}[N]["x]gX	of the changed text according to the |SmartCase-rules|:
+["x]gXX			Like |gxx|, but with |SmartCase-rules|.
+
 EXAMPLE					     *ChangeGloballySmartCase-example*
 
 Suppose you have a line like this, and you want to rename the type from
@@ -84,6 +89,10 @@ IDEAS					       *ChangeGloballySmartCase-ideas*
 ==============================================================================
 HISTORY					     *ChangeGloballySmartCase-history*
 
+1.30	RELEASEME
+- Adapt to interface changes of ChangeGlobally.vim version 1.30
+- ENH: Implement global delete as a specialization of an empty change.
+
 1.20	19-Nov-2013
 - Adapt to interface changes of ChangeGlobally.vim version 1.20
 - Use optional visualrepeat#reapply#VisualMode() for normal mode repeat of a
@@ -98,7 +107,7 @@ First published version.
 Started development.
 
 ==============================================================================
-Copyright: (C) 2012-2013 Ingo Karkat
+Copyright: (C) 2012-2014 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
