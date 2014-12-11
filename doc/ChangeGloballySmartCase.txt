@@ -72,6 +72,8 @@ To uninstall, use the |:RmVimball| command.
 DEPENDENCIES				*ChangeGloballySmartCase-dependencies*
 
 - Requires Vim 7.0 or higher.
+- Requires the |ingo-library.vim| plugin (vimscript #4433), version 1.021 or
+  higher.
 - ChangeGlobally.vim (vimscript #4321) plugin (version 1.20 or higher)
 - SmartCase.vim (vimscript #1359)
 - repeat.vim (vimscript #2136) plugin (optional)
@@ -92,6 +94,7 @@ HISTORY					     *ChangeGloballySmartCase-history*
 1.30	RELEASEME
 - Adapt to interface changes of ChangeGlobally.vim version 1.30
 - ENH: Implement global delete as a specialization of an empty change.
+  *** You need to update to ingo-library (vimscript #4433) version 1.021! ***
 
 1.20	19-Nov-2013
 - Adapt to interface changes of ChangeGlobally.vim version 1.20
