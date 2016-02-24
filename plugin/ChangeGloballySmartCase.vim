@@ -2,6 +2,7 @@
 "
 " DEPENDENCIES:
 "   - ChangeGlobally.vim autoload script
+"   - ingo/smartcase.vim autoload script
 "   - SmartCase.vim plugin (SmartCase() function)
 "
 " Copyright: (C) 2012-2014 Ingo Karkat
@@ -10,6 +11,8 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.30.007	20-Jun-2014	Factor out SmartCase search pattern conversion
+"				to ingo#smartcase#FromPattern().
 "   1.30.006	16-Jun-2014	ENH: Implement global delete as a specialization
 "				of an empty change.
 "				Add a:isDelete flag to
@@ -67,14 +70,10 @@ function! ChangeGloballySmartCase#Hook( search, replace, ... )
     " allow to append the /i flag to the :substitute command).
     let l:search = a:search[4:]
 
-    " Make all non-alphabetic delimiter characters and whitespace optional. As
-    " the substitution separator and backslash are escaped, they must be handled
-    " separately.
-    let l:search = substitute(l:search, '\\\@!\A\|\%(\%(^\|[^\\]\)\%(\\\\\)*\\\)\@<!\\[/\\]', '\\A\\?', 'g')
-    " Allow delimiters between CamelCase fragments to catch all variants.
-    let l:search = substitute(l:search, '\%(\%(^\|[^\\]\)\%(\\\\\)*\\\)\@<!\(\l\)\(\u\)', '\1\\A\\?\2', 'g')
+    " The substitution separator is /; therefore, the escaped form (\/) must be
+    " converted, too.
     return [
-    \   '\V\c' . l:search,
+    \   '\V' . ingo#smartcase#FromPattern(l:search, '/'),
     \   substitute(a:replace, '\CChangeGlobally#CountedReplace', 'ChangeGloballySmartCase#CountedReplace', '')
     \]
 endfunction
