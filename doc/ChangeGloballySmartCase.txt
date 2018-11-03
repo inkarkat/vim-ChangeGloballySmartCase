@@ -51,21 +51,27 @@ EXAMPLE					     *ChangeGloballySmartCase-example*
 
 Suppose you have a line like this, and you want to rename the type from
 "NodeList" to "FooBarSet", and adapt the variable name, too:
-    function set nodeList(nodeList:NodeList):void; // Update node list. ~
+function set nodeList(nodeList:NodeList):void; // Update node list. ~
 
 With the cursor on the start of any of the "nodeList", type gCe, enter the
 text "fooBarSet", then press <Esc>. The line will turn into
-    function set fooBarSet(fooBarSet:FooBarSet):void; // Update foo bar set. ~
+function set fooBarSet(fooBarSet:FooBarSet):void; // Update foo bar set. ~
 You can now re-apply this substitution to other lines or a visual selection
 via |.|
 
 ==============================================================================
 INSTALLATION				*ChangeGloballySmartCase-installation*
 
-This script is packaged as a |vimball|. If you have the "gunzip" decompressor
-in your PATH, simply edit the *.vmb.gz package in Vim; otherwise, decompress
-the archive first, e.g. using WinZip. Inside Vim, install by sourcing the
-vimball or via the |:UseVimball| command. >
+The code is hosted in a Git repo at
+    https://github.com/inkarkat/vim-ChangeGloballySmartCase
+You can use your favorite plugin manager, or "git clone" into a directory used
+for Vim |packages|. Releases are on the "stable" branch, the latest unstable
+development snapshot on "master".
+
+This script is also packaged as a |vimball|. If you have the "gunzip"
+decompressor in your PATH, simply edit the *.vmb.gz package in Vim; otherwise,
+decompress the archive first, e.g. using WinZip. Inside Vim, install by
+sourcing the vimball or via the |:UseVimball| command. >
     vim ChangeGloballySmartCase*.vmb.gz
     :so %
 To uninstall, use the |:RmVimball| command.
@@ -104,6 +110,12 @@ TODO						*ChangeGloballySmartCase-todo*
 
 IDEAS					       *ChangeGloballySmartCase-ideas*
 
+CONTRIBUTING			*ChangeGloballySmartCase-contribute*
+
+Report any bugs, send patches, or suggest features via the issue tracker at
+https://github.com/inkarkat/vim-ChangeGloballySmartCase/issues or email
+(address below).
+
 ==============================================================================
 HISTORY					     *ChangeGloballySmartCase-history*
 
@@ -128,7 +140,7 @@ First published version.
 Started development.
 
 ==============================================================================
-Copyright: (C) 2012-2014 Ingo Karkat
+Copyright: (C) 2012-2018 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
