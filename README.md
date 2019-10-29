@@ -1,4 +1,4 @@
-CHANGE GLOBALLY SMART CASE   
+CHANGE GLOBALLY SMART CASE
 ===============================================================================
 _by Ingo Karkat_
 
@@ -37,6 +37,34 @@ USAGE
     {Visual}[N]["x]gX       of the changed text according to the SmartCase-rules:
     ["x]gXX                 Like gxx, but with SmartCase-rules.
 
+    [N]["x]gC*{motion}      Delete the current whole \<word\> [into register x]
+                            and start inserting. After exiting insert mode, that
+                            text substitution, also to close textual variants
+                            according to the SmartCase-rules, is applied to all
+                            / the first [N] occurrences inside {motion} text.
+
+    [N]["x]gX*{motion}      Like gx_star, but with SmartCase-rules.
+    [N]["x]gCg*{motion}     Like gcg_star, but with SmartCase-rules.
+    [N]["x]gXg*{motion}     Like gxg_star, but with SmartCase-rules.
+    [N]["x]gC_ALT-8{motion} Like gc_ALT-8, but with SmartCase-rules.
+    [N]["x]gX_ALT-8{motion} Like gx_ALT-8, but with SmartCase-rules.
+    [N]["x]gCg_ALT-8{motion}Like gcg_ALT-8, but with SmartCase-rules.
+    [N]["x]gXg_ALT-8{motion}Like gxg_ALT-8, but with SmartCase-rules.
+
+    [N]["x]<Leader>gC{source-motion}{target-motion}
+                            Delete {source-motion} text [into register x] and
+                            and start inserting. After exiting insert mode, that
+                            text substitution, also to close textual variants
+                            according to the SmartCase-rules, is applied to all
+                            / the first [N] occurrences inside {target-motion}
+                            text.
+    {Visual}[N]["x]<Leader>gC{motion}
+                            Like v_<Leader>gc, but with SmartCase-rules.
+    [N]["x]<Leader>gX{source-motion}{target-motion}
+                            Like <Leader>gx, but with SmartCase-rules.
+    {Visual}[N]["x]<Leader>gX{motion}
+                            Like v_<Leader>gx, but with SmartCase-rules.
+
 ### EXAMPLE
 
 Suppose you have a line like this, and you want to rename the type from
@@ -46,7 +74,7 @@ function set nodeList(nodeList:NodeList):void; // Update node list.
 ```
 
 With the cursor on the start of any of the "nodeList", type gCe, enter the
-text "fooBarSet", then press <Esc>. The line will turn into
+text "fooBarSet", then press &lt;Esc&gt;. The line will turn into
 ```
 function set fooBarSet(fooBarSet:FooBarSet):void; // Update foo bar set.
 ```
@@ -75,9 +103,9 @@ To uninstall, use the :RmVimball command.
 ### DEPENDENCIES
 
 - Requires Vim 7.0 or higher.
-- Requires the ingo-library.vim plugin ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)), version 1.021 or
+- Requires the ingo-library.vim plugin ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)), version 1.040 or
   higher.
-- ChangeGlobally.vim ([vimscript #4321](http://www.vim.org/scripts/script.php?script_id=4321)) plugin (version 1.30 or higher)
+- ChangeGlobally.vim ([vimscript #4321](http://www.vim.org/scripts/script.php?script_id=4321)) plugin (version 2.00 or higher)
 - SmartCase.vim ([vimscript #1359](http://www.vim.org/scripts/script.php?script_id=1359))
 - repeat.vim ([vimscript #2136](http://www.vim.org/scripts/script.php?script_id=2136)) plugin (optional)
 - visualrepeat.vim ([vimscript #3848](http://www.vim.org/scripts/script.php?script_id=3848)) plugin (version 2.00 or higher; optional)
@@ -88,7 +116,7 @@ CONFIGURATION
 For a permanent configuration, put the following commands into your vimrc:
 
 If you want to use different mappings, map your keys to the
-<Plug>(ChangeGloballySmartCase...) and <Plug>(DeleteGloballySmartCase...)
+&lt;Plug&gt;(ChangeGloballySmartCase...) and &lt;Plug&gt;(DeleteGloballySmartCase...)
 mapping targets _before_ sourcing the script (e.g. in your vimrc):
 
     nmap <Leader>C <Plug>(ChangeGloballySmartCaseOperator)
@@ -97,6 +125,19 @@ mapping targets _before_ sourcing the script (e.g. in your vimrc):
     nmap <Leader>X <Plug>(DeleteGloballySmartCaseOperator)
     nmap <Leader>XX <Plug>(DeleteGloballySmartCaseLine)
     xmap <Leader>X <Plug>(DeleteGloballySmartCaseVisual)
+
+    nmap gC* <Plug>(ChangeWholeWordSmartCaseOperator)
+    nmap gX* <Plug>(DeleteWholeWordSmartCaseOperator)
+    nmap gCg* <Plug>(ChangeWordSmartCaseOperator)
+    nmap gXg* <Plug>(DeleteWordSmartCaseOperator)
+    nmap gC<A-8> <Plug>(ChangeWholeWORDSmartCaseOperator)
+    nmap gX<A-8> <Plug>(DeleteWholeWORDSmartCaseOperator)
+    nmap gCg<A-8> <Plug>(ChangeWORDSmartCaseOperator)
+    nmap gXg<A-8> <Plug>(DeleteWORDSmartCaseOperator)
+    nmap <Leader>gC <Plug>(ChangeOperatorSmartCaseOperator)
+    nmap <Leader>gX <Plug>(DeleteOperatorSmartCaseOperator)
+    xmap <Leader>gC <Plug>(ChangeSelectionSmartCaseOperator)
+    xmap <Leader>gX <Plug>(DeleteSelectionSmartCaseOperator)
 
 CONTRIBUTING
 ------------------------------------------------------------------------------
@@ -108,11 +149,18 @@ https://github.com/inkarkat/vim-ChangeGloballySmartCase/issues or email
 HISTORY
 ------------------------------------------------------------------------------
 
+##### 2.00    RELEASEME
+- Adapt to interface changes of ChangeGlobally.vim version 2.00
+
+__You need to update to ingo-library ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)) version 1.040 and
+  to ChangeGlobally.vim ([vimscript #4321](http://www.vim.org/scripts/script.php?script_id=4321)) version 2.00!__
+
 ##### 1.30    12-Dec-2014
 - Adapt to interface changes of ChangeGlobally.vim version 1.30
 - ENH: Implement global delete (gX{motion}, gXX) as a specialization of an
   empty change.
-  __You need to update to ingo-library ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)) version 1.021 and
+
+__You need to update to ingo-library ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)) version 1.021 and
   to ChangeGlobally.vim ([vimscript #4321](http://www.vim.org/scripts/script.php?script_id=4321)) version 1.30!__
 
 ##### 1.20    19-Nov-2013
@@ -129,7 +177,7 @@ HISTORY
 - Started development.
 
 ------------------------------------------------------------------------------
-Copyright: (C) 2012-2018 Ingo Karkat -
+Copyright: (C) 2012-2019 Ingo Karkat -
 The [VIM LICENSE](http://vimdoc.sourceforge.net/htmldoc/uganda.html#license) applies to this plugin.
 
-Maintainer:     Ingo Karkat <ingo@karkat.de>
+Maintainer:     Ingo Karkat &lt;ingo@karkat.de&gt;
