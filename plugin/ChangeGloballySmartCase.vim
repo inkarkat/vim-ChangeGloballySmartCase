@@ -9,41 +9,6 @@
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
-"
-" REVISION	DATE		REMARKS
-"   1.30.007	20-Jun-2014	Factor out SmartCase search pattern conversion
-"				to ingo#smartcase#FromPattern().
-"   1.30.006	16-Jun-2014	ENH: Implement global delete as a specialization
-"				of an empty change.
-"				Add a:isDelete flag to
-"				ChangeGlobally#SetParameters().
-"				Define duplicate delete mappings, with a default
-"				mapping to gX instead of gC.
-"				FIX: Substitution to make all non-alphabetic
-"				delimiter characters and whitespace optional
-"				didn't correctly deal with newline \n and the
-"				escaped \/ and \\. Tweak the regexp to deal with
-"				those.
-"				Avoid invoking SmartCase() on empty string. In
-"				the debugger, I've seen it turn it into a
-"				newline.
-"   1.20.005	14-Jun-2013	Minor: Make substitute() robust against
-"				'ignorecase'.
-"   1.20.004	19-Apr-2013	Adapt to ChangeGlobally.vim version 1.20:
-"				Stop duplicating s:count into l:replace and
-"				instead access directly from
-"				ChangeGlobally#CountedReplace(); i.e. drop the
-"				argument of
-"				ChangeGloballySmartCase#CountedReplace(), too.
-"   1.20.003	18-Apr-2013	Use optional visualrepeat#reapply#VisualMode()
-"				for normal mode repeat of a visual mapping.
-"				When supplying a [count] on such repeat of a
-"				previous linewise selection, now [count] number
-"				of lines instead of [count] times the original
-"				selection is used.
-"   1.00.002	26-Sep-2012	Also allow delimiters between CamelCase
-"				fragments in a:search.
-"	001	25-Sep-2012	file creation from plugin/ChangeGlobally.vim
 
 " Avoid installing twice or when in unsupported Vim version.
 if exists('g:loaded_ChangeGloballySmartCase') || (v:version < 700)
