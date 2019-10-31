@@ -115,9 +115,16 @@ CONFIGURATION
 
 For a permanent configuration, put the following commands into your vimrc:
 
+If you want no or only a few of the available mappings, you can completely
+turn off the creation of the default mappings by defining:
+
+    :let g:ChangeGloballySmartCase_no_mappings = 1
+
+This saves you from mapping dummy keys to all unwanted mapping targets.
+
 If you want to use different mappings, map your keys to the
-&lt;Plug&gt;(ChangeGloballySmartCase...) and &lt;Plug&gt;(DeleteGloballySmartCase...)
-mapping targets _before_ sourcing the script (e.g. in your vimrc):
+&lt;Plug&gt;(Change...SmartCase...) and &lt;Plug&gt;(Delete...SmartCase...) mapping
+targets _before_ sourcing the script (e.g. in your vimrc):
 
     nmap <Leader>C <Plug>(ChangeGloballySmartCaseOperator)
     nmap <Leader>CC <Plug>(ChangeGloballySmartCaseLine)
@@ -151,6 +158,8 @@ HISTORY
 
 ##### 2.00    RELEASEME
 - Adapt to interface changes of ChangeGlobally.vim version 2.00
+- ENH: Allow to disable all default mappings via a single
+  g:ChangeGloballySmartCase\_no\_mappings configuration flag.
 
 __You need to update to ingo-library ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)) version 1.040 and
   to ChangeGlobally.vim ([vimscript #4321](http://www.vim.org/scripts/script.php?script_id=4321)) version 2.00!__

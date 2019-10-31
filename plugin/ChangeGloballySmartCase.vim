@@ -87,54 +87,35 @@ function! ChangeGloballySmartCase#Hook( search, replace, ... ) abort
 endfunction
 
 
-"- mappings --------------------------------------------------------------------
 
-" Change moved-over text / selection globally.
+"- Change moved-over text / selection globally mappings ------------------------
 
 nnoremap <silent> <expr> <SID>(ChangeGloballySmartCaseOperator) ChangeGlobally#OperatorExpression('ChangeGlobally#SourceOperator')
 nnoremap <silent> <script> <Plug>(ChangeGloballySmartCaseOperator) :<C-u>call ChangeGlobally#SetParameters(0, v:count, 0, "\<lt>Plug>(ChangeGloballySmartCaseRepeat)", "\<lt>Plug>(ChangeGloballySmartCaseVisualRepeat)", function('ChangeGloballySmartCase#Hook'))<CR><SID>(ChangeGloballySmartCaseOperator)
-if ! hasmapto('<Plug>(ChangeGloballySmartCaseOperator)', 'n')
-    nmap gC <Plug>(ChangeGloballySmartCaseOperator)
-endif
 nnoremap <silent> <Plug>(ChangeGloballySmartCaseLine)
 \ :<C-u>call setline('.', getline('.'))<Bar>
 \call ChangeGlobally#SetParameters(0, 0, 0, "\<lt>Plug>(ChangeGloballySmartCaseRepeat)", "\<lt>Plug>(ChangeGloballySmartCaseVisualRepeat)", function('ChangeGloballySmartCase#Hook'))<Bar>
 \execute 'normal! V' . v:count1 . "_\<lt>Esc>"<Bar>
 \call ChangeGlobally#Operator('V')<CR>
-if ! hasmapto('<Plug>(ChangeGloballySmartCaseLine)', 'n')
-    nmap gCC <Plug>(ChangeGloballySmartCaseLine)
-endif
 
 vnoremap <silent> <Plug>(ChangeGloballySmartCaseVisual)
 \ :<C-u>call setline('.', getline('.'))<Bar>
 \call ChangeGlobally#SetParameters(0, v:count, 1, "\<lt>Plug>(ChangeGloballySmartCaseRepeat)", "\<lt>Plug>(ChangeGloballySmartCaseVisualRepeat)", function('ChangeGloballySmartCase#Hook'))<Bar>
 \call ChangeGlobally#Operator(visualmode())<CR>
-if ! hasmapto('<Plug>(ChangeGloballySmartCaseVisual)', 'x')
-    xmap gC <Plug>(ChangeGloballySmartCaseVisual)
-endif
 
 
 
 nnoremap <silent> <script> <Plug>(DeleteGloballySmartCaseOperator) :<C-u>call ChangeGlobally#SetParameters(1, v:count, 0, "\<lt>Plug>(ChangeGloballySmartCaseRepeat)", "\<lt>Plug>(ChangeGloballySmartCaseVisualRepeat)", function('ChangeGloballySmartCase#Hook'))<CR><SID>(ChangeGloballySmartCaseOperator)
-if ! hasmapto('<Plug>(DeleteGloballySmartCaseOperator)', 'n')
-    nmap gX <Plug>(DeleteGloballySmartCaseOperator)
-endif
 nnoremap <silent> <Plug>(DeleteGloballySmartCaseLine)
 \ :<C-u>call setline('.', getline('.'))<Bar>
 \call ChangeGlobally#SetParameters(1, 0, 0, "\<lt>Plug>(ChangeGloballySmartCaseRepeat)", "\<lt>Plug>(ChangeGloballySmartCaseVisualRepeat)", function('ChangeGloballySmartCase#Hook'))<Bar>
 \execute 'normal! V' . v:count1 . "_\<lt>Esc>"<Bar>
 \call ChangeGlobally#Operator('V')<CR>
-if ! hasmapto('<Plug>(DeleteGloballySmartCaseLine)', 'n')
-    nmap gXX <Plug>(DeleteGloballySmartCaseLine)
-endif
 
 vnoremap <silent> <Plug>(DeleteGloballySmartCaseVisual)
 \ :<C-u>call setline('.', getline('.'))<Bar>
 \call ChangeGlobally#SetParameters(1, v:count, 1, "\<lt>Plug>(ChangeGloballySmartCaseRepeat)", "\<lt>Plug>(ChangeGloballySmartCaseVisualRepeat)", function('ChangeGloballySmartCase#Hook'))<Bar>
 \call ChangeGlobally#Operator(visualmode())<CR>
-if ! hasmapto('<Plug>(DeleteGloballySmartCaseVisual)', 'x')
-    xmap gX <Plug>(DeleteGloballySmartCaseVisual)
-endif
 
 
 
@@ -163,67 +144,92 @@ nnoremap <silent> <Plug>(ChangeGloballySmartCaseVisualRepeat)
 
 
 
-" Change current word / WORD / selection / moved-over text over the moved-over area.
+"- Change cword / cWORD / selection / moved-over text over the moved-over area -
 
 nnoremap <silent> <expr> <SID>(ChangeWholeWordSmartCaseOperator) ChangeGlobally#OperatorExpression('ChangeGlobally#WholeWordSourceOperatorTarget')
 nnoremap <silent> <script> <Plug>(ChangeWholeWordSmartCaseOperator) :<C-u>call ChangeGlobally#SetParameters(0, v:count, 0, "\<lt>Plug>(ChangeAreaCannotRepeat)", "\<lt>Plug>(ChangeAreaVisualRepeat)", function('ChangeGloballySmartCase#Hook'))<CR><SID>(ChangeWholeWordSmartCaseOperator)
-if ! hasmapto('<Plug>(ChangeWholeWordSmartCaseOperator)', 'n')
-    nmap gC* <Plug>(ChangeWholeWordSmartCaseOperator)
-endif
 nnoremap <silent> <script> <Plug>(DeleteWholeWordSmartCaseOperator) :<C-u>call ChangeGlobally#SetParameters(1, v:count, 0, "\<lt>Plug>(ChangeAreaRepeat)", "\<lt>Plug>(ChangeAreaVisualRepeat)", function('ChangeGloballySmartCase#Hook'))<CR><SID>(ChangeWholeWordSmartCaseOperator)
-if ! hasmapto('<Plug>(DeleteWholeWordSmartCaseOperator)', 'n')
-    nmap gX* <Plug>(DeleteWholeWordSmartCaseOperator)
-endif
 
 nnoremap <silent> <expr> <SID>(ChangeWordSmartCaseOperator) ChangeGlobally#OperatorExpression('ChangeGlobally#WordSourceOperatorTarget')
 nnoremap <silent> <script> <Plug>(ChangeWordSmartCaseOperator) :<C-u>call ChangeGlobally#SetParameters(0, v:count, 0, "\<lt>Plug>(ChangeAreaCannotRepeat)", "\<lt>Plug>(ChangeAreaVisualRepeat)", function('ChangeGloballySmartCase#Hook'))<CR><SID>(ChangeWordSmartCaseOperator)
-if ! hasmapto('<Plug>(ChangeWordSmartCaseOperator)', 'n')
-    nmap gCg* <Plug>(ChangeWordSmartCaseOperator)
-endif
 nnoremap <silent> <script> <Plug>(DeleteWordSmartCaseOperator) :<C-u>call ChangeGlobally#SetParameters(1, v:count, 0, "\<lt>Plug>(ChangeAreaRepeat)", "\<lt>Plug>(ChangeAreaVisualRepeat)", function('ChangeGloballySmartCase#Hook'))<CR><SID>(ChangeWordSmartCaseOperator)
-if ! hasmapto('<Plug>(DeleteWordSmartCaseOperator)', 'n')
-    nmap gXg* <Plug>(DeleteWordSmartCaseOperator)
-endif
 
 nnoremap <silent> <expr> <SID>(ChangeWholeWORDSmartCaseOperator) ChangeGlobally#OperatorExpression('ChangeGlobally#WholeWORDSourceOperatorTarget')
 nnoremap <silent> <script> <Plug>(ChangeWholeWORDSmartCaseOperator) :<C-u>call ChangeGlobally#SetParameters(0, v:count, 0, "\<lt>Plug>(ChangeAreaCannotRepeat)", "\<lt>Plug>(ChangeAreaVisualRepeat)", function('ChangeGloballySmartCase#Hook'))<CR><SID>(ChangeWholeWORDSmartCaseOperator)
-if ! hasmapto('<Plug>(ChangeWholeWORDSmartCaseOperator)', 'n')
-    nmap gC<A-8> <Plug>(ChangeWholeWORDSmartCaseOperator)
-endif
 nnoremap <silent> <script> <Plug>(DeleteWholeWORDSmartCaseOperator) :<C-u>call ChangeGlobally#SetParameters(1, v:count, 0, "\<lt>Plug>(ChangeAreaRepeat)", "\<lt>Plug>(ChangeAreaVisualRepeat)", function('ChangeGloballySmartCase#Hook'))<CR><SID>(ChangeWholeWORDSmartCaseOperator)
-if ! hasmapto('<Plug>(DeleteWholeWORDSmartCaseOperator)', 'n')
-    nmap gX<A-8> <Plug>(DeleteWholeWORDSmartCaseOperator)
-endif
 
 nnoremap <silent> <expr> <SID>(ChangeWORDSmartCaseOperator) ChangeGlobally#OperatorExpression('ChangeGlobally#WORDSourceOperatorTarget')
 nnoremap <silent> <script> <Plug>(ChangeWORDSmartCaseOperator) :<C-u>call ChangeGlobally#SetParameters(0, v:count, 0, "\<lt>Plug>(ChangeAreaCannotRepeat)", "\<lt>Plug>(ChangeAreaVisualRepeat)", function('ChangeGloballySmartCase#Hook'))<CR><SID>(ChangeWORDSmartCaseOperator)
-if ! hasmapto('<Plug>(ChangeWORDSmartCaseOperator)', 'n')
-    nmap gCg<A-8> <Plug>(ChangeWORDSmartCaseOperator)
-endif
 nnoremap <silent> <script> <Plug>(DeleteWORDSmartCaseOperator) :<C-u>call ChangeGlobally#SetParameters(1, v:count, 0, "\<lt>Plug>(ChangeAreaRepeat)", "\<lt>Plug>(ChangeAreaVisualRepeat)", function('ChangeGloballySmartCase#Hook'))<CR><SID>(ChangeWORDSmartCaseOperator)
-if ! hasmapto('<Plug>(DeleteWORDSmartCaseOperator)', 'n')
-    nmap gXg<A-8> <Plug>(DeleteWORDSmartCaseOperator)
-endif
 
 
 nnoremap <silent> <expr> <SID>(ChangeOperatorSmartCaseOperator) ChangeGlobally#OperatorExpression('ChangeGlobally#OperatorSourceOperatorTarget')
 nnoremap <silent> <script> <Plug>(ChangeOperatorSmartCaseOperator) :<C-u>call ChangeGlobally#SetParameters(0, v:count, 0, "\<lt>Plug>(ChangeAreaCannotRepeat)", "\<lt>Plug>(ChangeAreaVisualRepeat)", function('ChangeGloballySmartCase#Hook'))<CR><SID>(ChangeOperatorSmartCaseOperator)
-if ! hasmapto('<Plug>(ChangeOperatorSmartCaseOperator)', 'n')
-    nmap <Leader>gC <Plug>(ChangeOperatorSmartCaseOperator)
-endif
 nnoremap <silent> <script> <Plug>(DeleteOperatorSmartCaseOperator) :<C-u>call ChangeGlobally#SetParameters(1, v:count, 0, "\<lt>Plug>(ChangeAreaRepeat)", "\<lt>Plug>(ChangeAreaVisualRepeat)", function('ChangeGloballySmartCase#Hook'))<CR><SID>(ChangeOperatorSmartCaseOperator)
-if ! hasmapto('<Plug>(DeleteOperatorSmartCaseOperator)', 'n')
-    nmap <Leader>gX <Plug>(DeleteOperatorSmartCaseOperator)
-endif
 
 nnoremap <silent> <expr> <SID>(ChangeSelectionSmartCaseOperator) ChangeGlobally#OperatorExpression('ChangeGlobally#SelectionSourceSmartCaseOperatorTarget')
 vnoremap <silent> <script> <Plug>(ChangeSelectionSmartCaseOperator) :<C-u>call ChangeGlobally#SetParameters(0, v:count, 0, "\<lt>Plug>(ChangeAreaCannotRepeat)", "\<lt>Plug>(ChangeAreaVisualRepeat)", function('ChangeGloballySmartCase#Hook'))<CR><SID>(ChangeSelectionSmartCaseOperator)
-if ! hasmapto('<Plug>(ChangeSelectionSmartCaseOperator)', 'v')
-    xmap <Leader>gC <Plug>(ChangeSelectionSmartCaseOperator)
-endif
 vnoremap <silent> <script> <Plug>(DeleteSelectionSmartCaseOperator) :<C-u>call ChangeGlobally#SetParameters(1, v:count, 0, "\<lt>Plug>(ChangeAreaRepeat)", "\<lt>Plug>(ChangeAreaVisualRepeat)", function('ChangeGloballySmartCase#Hook'))<CR><SID>(ChangeSelectionSmartCaseOperator)
-if ! hasmapto('<Plug>(DeleteSelectionSmartCaseOperator)', 'v')
-    xmap <Leader>gX <Plug>(DeleteSelectionSmartCaseOperator)
+
+
+
+"- default mappings ------------------------------------------------------------
+
+if ! exists('g:ChangeGloballySmartCase_no_mappings')
+    if ! hasmapto('<Plug>(ChangeGloballySmartCaseOperator)', 'n')
+	nmap gC <Plug>(ChangeGloballySmartCaseOperator)
+    endif
+    if ! hasmapto('<Plug>(ChangeGloballySmartCaseLine)', 'n')
+	nmap gCC <Plug>(ChangeGloballySmartCaseLine)
+    endif
+    if ! hasmapto('<Plug>(ChangeGloballySmartCaseVisual)', 'x')
+	xmap gC <Plug>(ChangeGloballySmartCaseVisual)
+    endif
+    if ! hasmapto('<Plug>(DeleteGloballySmartCaseOperator)', 'n')
+	nmap gX <Plug>(DeleteGloballySmartCaseOperator)
+    endif
+    if ! hasmapto('<Plug>(DeleteGloballySmartCaseLine)', 'n')
+	nmap gXX <Plug>(DeleteGloballySmartCaseLine)
+    endif
+    if ! hasmapto('<Plug>(DeleteGloballySmartCaseVisual)', 'x')
+	xmap gX <Plug>(DeleteGloballySmartCaseVisual)
+    endif
+    if ! hasmapto('<Plug>(ChangeWholeWordSmartCaseOperator)', 'n')
+	nmap gC* <Plug>(ChangeWholeWordSmartCaseOperator)
+    endif
+    if ! hasmapto('<Plug>(DeleteWholeWordSmartCaseOperator)', 'n')
+	nmap gX* <Plug>(DeleteWholeWordSmartCaseOperator)
+    endif
+    if ! hasmapto('<Plug>(ChangeWordSmartCaseOperator)', 'n')
+	nmap gCg* <Plug>(ChangeWordSmartCaseOperator)
+    endif
+    if ! hasmapto('<Plug>(DeleteWordSmartCaseOperator)', 'n')
+	nmap gXg* <Plug>(DeleteWordSmartCaseOperator)
+    endif
+    if ! hasmapto('<Plug>(ChangeWholeWORDSmartCaseOperator)', 'n')
+	nmap gC<A-8> <Plug>(ChangeWholeWORDSmartCaseOperator)
+    endif
+    if ! hasmapto('<Plug>(DeleteWholeWORDSmartCaseOperator)', 'n')
+	nmap gX<A-8> <Plug>(DeleteWholeWORDSmartCaseOperator)
+    endif
+    if ! hasmapto('<Plug>(ChangeWORDSmartCaseOperator)', 'n')
+	nmap gCg<A-8> <Plug>(ChangeWORDSmartCaseOperator)
+    endif
+    if ! hasmapto('<Plug>(DeleteWORDSmartCaseOperator)', 'n')
+	nmap gXg<A-8> <Plug>(DeleteWORDSmartCaseOperator)
+    endif
+    if ! hasmapto('<Plug>(ChangeOperatorSmartCaseOperator)', 'n')
+	nmap <Leader>gC <Plug>(ChangeOperatorSmartCaseOperator)
+    endif
+    if ! hasmapto('<Plug>(DeleteOperatorSmartCaseOperator)', 'n')
+	nmap <Leader>gX <Plug>(DeleteOperatorSmartCaseOperator)
+    endif
+    if ! hasmapto('<Plug>(ChangeSelectionSmartCaseOperator)', 'v')
+	xmap <Leader>gC <Plug>(ChangeSelectionSmartCaseOperator)
+    endif
+    if ! hasmapto('<Plug>(DeleteSelectionSmartCaseOperator)', 'v')
+	xmap <Leader>gX <Plug>(DeleteSelectionSmartCaseOperator)
+    endif
 endif
 
 let &cpo = s:save_cpo
