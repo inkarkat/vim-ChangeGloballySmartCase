@@ -53,16 +53,22 @@ USAGE					       *ChangeGloballySmartCase-usage*
 			text substitution, also to close textual variants
 			according to the |SmartCase-rules|, is applied to all
 			/ the first [N] occurrences inside {motion} text.
- *gX_star* *gCg_star* *gXg_star* *gC_ALT-8* *gX_ALT-8* *gCg_ALT-8* *gXg_ALT-8*
+			  *gX_star* *gR_star* *gCg_star* *gXg_star* *gRg_star*
+	  *gC_ALT-8* *gX_ALT-8* *gR_ALT-8* *gCg_ALT-8* *gXg_ALT-8* *gRg_ALT-8*
 [N]["x]gX*{motion}	Like |gx_star|, but with |SmartCase-rules|.
+[N]["x]gR*{motion}	Like |gr_star|, but with |SmartCase-rules|.
 [N]["x]gCg*{motion}	Like |gcg_star|, but with |SmartCase-rules|.
 [N]["x]gXg*{motion}	Like |gxg_star|, but with |SmartCase-rules|.
+[N]["x]gRg*{motion}	Like |grg_star|, but with |SmartCase-rules|.
 [N]["x]gC_ALT-8{motion}	Like |gc_ALT-8|, but with |SmartCase-rules|.
 [N]["x]gX_ALT-8{motion}	Like |gx_ALT-8|, but with |SmartCase-rules|.
+[N]["x]gR_ALT-8{motion}	Like |gr_ALT-8|, but with |SmartCase-rules|.
 [N]["x]gCg_ALT-8{motion}Like |gcg_ALT-8|, but with |SmartCase-rules|.
 [N]["x]gXg_ALT-8{motion}Like |gxg_ALT-8|, but with |SmartCase-rules|.
+[N]["x]gRg_ALT-8{motion}Like |grg_ALT-8|, but with |SmartCase-rules|.
 						   *<Leader>gC* *v_<Leader>gC*
 						   *<Leader>gX* *v_<Leader>gX*
+						   *<Leader>gR* *v_<Leader>gR*
 [N]["x]<Leader>gC{source-motion}{target-motion}
 			Delete {source-motion} text [into register x] and
 			and start inserting. After exiting insert mode, that
@@ -76,6 +82,10 @@ USAGE					       *ChangeGloballySmartCase-usage*
 			Like |<Leader>gx|, but with |SmartCase-rules|.
 {Visual}[N]["x]<Leader>gX{motion}
 			Like |v_<Leader>gx|, but with |SmartCase-rules|.
+[N]["x]<Leader>gR{source-motion}{target-motion}
+			Like |<Leader>gr|, but with |SmartCase-rules|.
+{Visual}[N]["x]<Leader>gR{motion}
+			Like |v_<Leader>gr|, but with |SmartCase-rules|.
 
 EXAMPLE					     *ChangeGloballySmartCase-example*
 
@@ -111,7 +121,7 @@ DEPENDENCIES				*ChangeGloballySmartCase-dependencies*
 - Requires Vim 7.0 or higher.
 - Requires the |ingo-library.vim| plugin (vimscript #4433), version 1.040 or
   higher.
-- ChangeGlobally.vim (vimscript #4321) plugin (version 2.00 or higher)
+- ChangeGlobally.vim (vimscript #4321) plugin (version 2.10 or higher)
 - SmartCase.vim (vimscript #1359)
 - repeat.vim (vimscript #2136) plugin (optional)
 - visualrepeat.vim (vimscript #3848) plugin (version 2.00 or higher; optional)
@@ -140,16 +150,22 @@ targets _before_ sourcing the script (e.g. in your |vimrc|): >
 
     nmap gC* <Plug>(ChangeWholeWordSmartCaseOperator)
     nmap gX* <Plug>(DeleteWholeWordSmartCaseOperator)
+    nmap gR* <Plug>(RegisterWholeWordSmartCaseOperator)
     nmap gCg* <Plug>(ChangeWordSmartCaseOperator)
     nmap gXg* <Plug>(DeleteWordSmartCaseOperator)
+    nmap gRg* <Plug>(RegisterWordSmartCaseOperator)
     nmap gC<A-8> <Plug>(ChangeWholeWORDSmartCaseOperator)
     nmap gX<A-8> <Plug>(DeleteWholeWORDSmartCaseOperator)
+    nmap gR<A-8> <Plug>(RegisterWholeWORDSmartCaseOperator)
     nmap gCg<A-8> <Plug>(ChangeWORDSmartCaseOperator)
     nmap gXg<A-8> <Plug>(DeleteWORDSmartCaseOperator)
+    nmap gRg<A-8> <Plug>(RegisterWORDSmartCaseOperator)
     nmap <Leader>gC <Plug>(ChangeOperatorSmartCaseOperator)
     nmap <Leader>gX <Plug>(DeleteOperatorSmartCaseOperator)
+    nmap <Leader>gR <Plug>(RegisterOperatorSmartCaseOperator)
     xmap <Leader>gC <Plug>(ChangeSelectionSmartCaseOperator)
     xmap <Leader>gX <Plug>(DeleteSelectionSmartCaseOperator)
+    xmap <Leader>gR <Plug>(RegisterSelectionSmartCaseOperator)
 <
 ==============================================================================
 LIMITATIONS				 *ChangeGloballySmartCase-limitations*
@@ -168,6 +184,13 @@ https://github.com/inkarkat/vim-ChangeGloballySmartCase/issues or email
 
 ==============================================================================
 HISTORY					     *ChangeGloballySmartCase-history*
+
+2.10	RELEASEME
+- ENH: Add gR*, gRg*, gR<A-8>, gRg<A-8>, <Leader>gR mappings that replace with
+  register contents instead of the changed text / deleting (and capturing in a
+  register).
+  *** You need to update to ChangeGlobally.vim (vimscript #4321)
+  version 2.10! ***
 
 2.00	09-Feb-2020
 - Adapt to interface changes of ChangeGlobally.vim version 2.00
