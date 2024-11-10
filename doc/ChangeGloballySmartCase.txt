@@ -47,25 +47,71 @@ USAGE					       *ChangeGloballySmartCase-usage*
 {Visual}[N]["x]gX	of the changed text according to the |SmartCase-rules|:
 ["x]gXX			Like |gxx|, but with |SmartCase-rules|.
 
+								     *gC_star*
+[N]["x]gC*{motion}	Delete the current whole \<word\> [into register x]
+			and start inserting. After exiting insert mode, that
+			text substitution, also to close textual variants
+			according to the |SmartCase-rules|, is applied to all
+			/ the first [N] occurrences inside {motion} text.
+			  *gX_star* *gR_star* *gCg_star* *gXg_star* *gRg_star*
+	  *gC_ALT-8* *gX_ALT-8* *gR_ALT-8* *gCg_ALT-8* *gXg_ALT-8* *gRg_ALT-8*
+[N]["x]gX*{motion}	Like |gx_star|, but with |SmartCase-rules|.
+[N]["x]gR*{motion}	Like |gr_star|, but with |SmartCase-rules|.
+[N]["x]gCg*{motion}	Like |gcg_star|, but with |SmartCase-rules|.
+[N]["x]gXg*{motion}	Like |gxg_star|, but with |SmartCase-rules|.
+[N]["x]gRg*{motion}	Like |grg_star|, but with |SmartCase-rules|.
+[N]["x]gC_ALT-8{motion}	Like |gc_ALT-8|, but with |SmartCase-rules|.
+[N]["x]gX_ALT-8{motion}	Like |gx_ALT-8|, but with |SmartCase-rules|.
+[N]["x]gR_ALT-8{motion}	Like |gr_ALT-8|, but with |SmartCase-rules|.
+[N]["x]gCg_ALT-8{motion}Like |gcg_ALT-8|, but with |SmartCase-rules|.
+[N]["x]gXg_ALT-8{motion}Like |gxg_ALT-8|, but with |SmartCase-rules|.
+[N]["x]gRg_ALT-8{motion}Like |grg_ALT-8|, but with |SmartCase-rules|.
+						   *<Leader>gC* *v_<Leader>gC*
+						   *<Leader>gX* *v_<Leader>gX*
+						   *<Leader>gR* *v_<Leader>gR*
+[N]["x]<Leader>gC{source-motion}{target-motion}
+			Delete {source-motion} text [into register x] and
+			and start inserting. After exiting insert mode, that
+			text substitution, also to close textual variants
+			according to the |SmartCase-rules|, is applied to all
+			/ the first [N] occurrences inside {target-motion}
+			text.
+{Visual}[N]["x]<Leader>gC{motion}
+			Like |v_<Leader>gc|, but with |SmartCase-rules|.
+[N]["x]<Leader>gX{source-motion}{target-motion}
+			Like |<Leader>gx|, but with |SmartCase-rules|.
+{Visual}[N]["x]<Leader>gX{motion}
+			Like |v_<Leader>gx|, but with |SmartCase-rules|.
+[N]["x]<Leader>gR{source-motion}{target-motion}
+			Like |<Leader>gr|, but with |SmartCase-rules|.
+{Visual}[N]["x]<Leader>gR{motion}
+			Like |v_<Leader>gr|, but with |SmartCase-rules|.
+
 EXAMPLE					     *ChangeGloballySmartCase-example*
 
 Suppose you have a line like this, and you want to rename the type from
 "NodeList" to "FooBarSet", and adapt the variable name, too:
-    function set nodeList(nodeList:NodeList):void; // Update node list. ~
+function set nodeList(nodeList:NodeList):void; // Update node list. ~
 
 With the cursor on the start of any of the "nodeList", type gCe, enter the
 text "fooBarSet", then press <Esc>. The line will turn into
-    function set fooBarSet(fooBarSet:FooBarSet):void; // Update foo bar set. ~
+function set fooBarSet(fooBarSet:FooBarSet):void; // Update foo bar set. ~
 You can now re-apply this substitution to other lines or a visual selection
 via |.|
 
 ==============================================================================
 INSTALLATION				*ChangeGloballySmartCase-installation*
 
-This script is packaged as a |vimball|. If you have the "gunzip" decompressor
-in your PATH, simply edit the *.vmb.gz package in Vim; otherwise, decompress
-the archive first, e.g. using WinZip. Inside Vim, install by sourcing the
-vimball or via the |:UseVimball| command. >
+The code is hosted in a Git repo at
+    https://github.com/inkarkat/vim-ChangeGloballySmartCase
+You can use your favorite plugin manager, or "git clone" into a directory used
+for Vim |packages|. Releases are on the "stable" branch, the latest unstable
+development snapshot on "master".
+
+This script is also packaged as a |vimball|. If you have the "gunzip"
+decompressor in your PATH, simply edit the *.vmb.gz package in Vim; otherwise,
+decompress the archive first, e.g. using WinZip. Inside Vim, install by
+sourcing the vimball or via the |:UseVimball| command. >
     vim ChangeGloballySmartCase*.vmb.gz
     :so %
 To uninstall, use the |:RmVimball| command.
@@ -73,10 +119,12 @@ To uninstall, use the |:RmVimball| command.
 DEPENDENCIES				*ChangeGloballySmartCase-dependencies*
 
 - Requires Vim 7.0 or higher.
-- Requires the |ingo-library.vim| plugin (vimscript #4433), version 1.021 or
+- Requires the |ingo-library.vim| plugin (vimscript #4433), version 1.040 or
   higher.
-- ChangeGlobally.vim (vimscript #4321) plugin (version 1.30 or higher)
-- SmartCase.vim (vimscript #1359)
+- Requires the |ChangeGlobally.vim| (vimscript #4321) plugin (version 2.10 or
+  higher)
+- Requires the |SmartCase.vim| plugin (vimscript #1359, or my fork at
+  https://github.com/inkarkat/vim-SmartCase)
 - repeat.vim (vimscript #2136) plugin (optional)
 - visualrepeat.vim (vimscript #3848) plugin (version 2.00 or higher; optional)
 
@@ -84,16 +132,42 @@ DEPENDENCIES				*ChangeGloballySmartCase-dependencies*
 CONFIGURATION			       *ChangeGloballySmartCase-configuration*
 
 For a permanent configuration, put the following commands into your |vimrc|:
+
+					*g:ChangeGloballySmartCase_no_mappings*
+If you want no or only a few of the available mappings, you can completely
+turn off the creation of the default mappings by defining: >
+    :let g:ChangeGloballySmartCase_no_mappings = 1
+This saves you from mapping dummy keys to all unwanted mapping targets.
+
 					       *ChangeGloballySmartCase-remap*
 If you want to use different mappings, map your keys to the
-<Plug>(ChangeGloballySmartCase...) and <Plug>(DeleteGloballySmartCase...)
-mapping targets _before_ sourcing the script (e.g. in your |vimrc|): >
+<Plug>(Change...SmartCase...) and <Plug>(Delete...SmartCase...) mapping
+targets _before_ sourcing the script (e.g. in your |vimrc|): >
     nmap <Leader>C <Plug>(ChangeGloballySmartCaseOperator)
     nmap <Leader>CC <Plug>(ChangeGloballySmartCaseLine)
     xmap <Leader>C <Plug>(ChangeGloballySmartCaseVisual)
     nmap <Leader>X <Plug>(DeleteGloballySmartCaseOperator)
     nmap <Leader>XX <Plug>(DeleteGloballySmartCaseLine)
     xmap <Leader>X <Plug>(DeleteGloballySmartCaseVisual)
+
+    nmap gC* <Plug>(ChangeWholeWordSmartCaseOperator)
+    nmap gX* <Plug>(DeleteWholeWordSmartCaseOperator)
+    nmap gR* <Plug>(RegisterWholeWordSmartCaseOperator)
+    nmap gCg* <Plug>(ChangeWordSmartCaseOperator)
+    nmap gXg* <Plug>(DeleteWordSmartCaseOperator)
+    nmap gRg* <Plug>(RegisterWordSmartCaseOperator)
+    nmap gC<A-8> <Plug>(ChangeWholeWORDSmartCaseOperator)
+    nmap gX<A-8> <Plug>(DeleteWholeWORDSmartCaseOperator)
+    nmap gR<A-8> <Plug>(RegisterWholeWORDSmartCaseOperator)
+    nmap gCg<A-8> <Plug>(ChangeWORDSmartCaseOperator)
+    nmap gXg<A-8> <Plug>(DeleteWORDSmartCaseOperator)
+    nmap gRg<A-8> <Plug>(RegisterWORDSmartCaseOperator)
+    nmap <Leader>gC <Plug>(ChangeOperatorSmartCaseOperator)
+    nmap <Leader>gX <Plug>(DeleteOperatorSmartCaseOperator)
+    nmap <Leader>gR <Plug>(RegisterOperatorSmartCaseOperator)
+    xmap <Leader>gC <Plug>(ChangeSelectionSmartCaseOperator)
+    xmap <Leader>gX <Plug>(DeleteSelectionSmartCaseOperator)
+    xmap <Leader>gR <Plug>(RegisterSelectionSmartCaseOperator)
 <
 ==============================================================================
 LIMITATIONS				 *ChangeGloballySmartCase-limitations*
@@ -104,8 +178,28 @@ TODO						*ChangeGloballySmartCase-todo*
 
 IDEAS					       *ChangeGloballySmartCase-ideas*
 
+CONTRIBUTING			*ChangeGloballySmartCase-contribute*
+
+Report any bugs, send patches, or suggest features via the issue tracker at
+https://github.com/inkarkat/vim-ChangeGloballySmartCase/issues or email
+(address below).
+
 ==============================================================================
 HISTORY					     *ChangeGloballySmartCase-history*
+
+2.10	10-Nov-2024
+- ENH: Add gR*, gRg*, gR<A-8>, gRg<A-8>, <Leader>gR mappings that replace with
+  register contents instead of the changed text / deleting (and capturing in a
+  register).
+  *** You need to update to ChangeGlobally.vim (vimscript #4321)
+  version 2.10! ***
+
+2.00	09-Feb-2020
+- Adapt to interface changes of ChangeGlobally.vim version 2.00
+- ENH: Allow to disable all default mappings via a single
+  g:ChangeGloballySmartCase_no_mappings configuration flag.
+  *** You need to update to ingo-library (vimscript #4433) version 1.040 and
+  to ChangeGlobally.vim (vimscript #4321) version 2.00! ***
 
 1.30	12-Dec-2014
 - Adapt to interface changes of ChangeGlobally.vim version 1.30
@@ -128,7 +222,7 @@ First published version.
 Started development.
 
 ==============================================================================
-Copyright: (C) 2012-2014 Ingo Karkat
+Copyright: (C) 2012-2024 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
