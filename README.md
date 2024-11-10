@@ -172,7 +172,7 @@ https://github.com/inkarkat/vim-ChangeGloballySmartCase/issues or email
 HISTORY
 ------------------------------------------------------------------------------
 
-##### 2.10    RELEASEME
+##### 2.10    10-Nov-2024
 - ENH: Add gR\*, gRg\*, gR&lt;A-8&gt;, gRg&lt;A-8&gt;, &lt;Leader&gt;gR mappings that replace with
   register contents instead of the changed text / deleting (and capturing in a
   register).
@@ -210,7 +210,7 @@ __You need to update to ingo-library ([vimscript #4433](http://www.vim.org/scrip
 - Started development.
 
 ------------------------------------------------------------------------------
-Copyright: (C) 2012-2020 Ingo Karkat -
+Copyright: (C) 2012-2024 Ingo Karkat -
 The [VIM LICENSE](http://vimdoc.sourceforge.net/htmldoc/uganda.html#license) applies to this plugin.
 
 Maintainer:     Ingo Karkat &lt;ingo@karkat.de&gt;
